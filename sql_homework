@@ -8,10 +8,11 @@ exit
 
 psql -U alexey -d my_music
 
-create table musician_performer (musician_performer serial primary key, name varchar(40), alias varchar(40), album_list text, genre_ID integer unique, genre_name varchar(40) unique); 
-
-create table album(album_id serial primary key, album_name varchar(40), year_of_release date, number_of_tracks integer, tracks_list text, musician_performer integer references musician_performer(musician_performer));
-
-create table tracks (album_id integer references album(album_id), track_nane varchar(40), track_duration timestamp, musician_performer integer references musician_performer(musician_performer))
-
-my_music=> create table genre (genre_ID integer references musician_performer(genre_ID) primary key, genre_name varchar(40) references musician_performer(genre_name), musician_performer integer references musician_performer(musician_performer), musician_performer_list text);
+my_music=> create table genre (genre_ID serial primary key, genre_name varchar(40) not null);
+CREATE TABLE
+my_music=> create table musician_performer (artist_id serial primary key, artist_name varchar(40), alas varchar(40), genre integer references genre(genre_id));
+CREATE TABLE
+my_music=> create table album (album_id serial primary key, album_name varchar(40) not null, year_of_release integer, artist_id integer references musician_performer(artist_id)); 
+CREATE TABLE
+my_music=> create table track (track_id serial primary key, album_id integer references album(album_id), track_name varchar(40), track_duration integer);
+CREATE TABLE
