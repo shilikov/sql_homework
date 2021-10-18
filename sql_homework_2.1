@@ -1,0 +1,14 @@
+create table company (company_id serial primary key, company_name varchar(80) not null);
+CREATE TABLE
+
+create table department (epartment_id serial primary key, department_name varchar(80) not null, company_id integer references company(company_id));
+CREATE TABLE
+
+
+create table employee (employee_id serial primary key, employee_name varchar(80) not null, department_id integer references department(epartment_id));
+CREATE TABLE
+
+
+create table supervisor (employee_id integer references employee(employee_id), supervisor_name varchar(80) not null, department_id integer references department(epartment_id), top_id serial unique, constraint pk primary key (employee_id, top_id)); 
+
+alter table employee add supervisor integer references supervisor(top_id);
